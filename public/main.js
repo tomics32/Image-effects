@@ -18,11 +18,25 @@ async function init() {
     fileReader.onloadend = () => {  //function will be executed when file is loaded
         let base64 = fileReader.result.replace(
             /^data:image\/(png|jpeg|jpg);base64,/, ''
-        )
-       let img_data_url = rustApp.grayscale(base64)
+        );
+
+    
+       let grayOut = rustApp.grayscale(base64);
+       let blurOut = rustApp.blur(grayOut.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''), 2.0);
+
+
+       
+        
+       
+
        document.getElementById('new-img').setAttribute(
-        'src', img_data_url
-       )
+        'src', blurOut
+       );
+
+       
+
+       
+  
     }
 
     input.addEventListener('change', () => {
